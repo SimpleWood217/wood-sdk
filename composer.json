@@ -1,0 +1,24 @@
+{
+    "name": "wood/sdk",
+    "description": "木SDK",
+    "type": "library",
+    "require": {
+        "guzzlehttp/guzzle": "7.5.*",
+        "php": "8.3.*",
+        "ext-openssl": "*",
+        "ext-sodium": "*",
+        "symfony/var-dumper": "^7.4",
+        "ext-bcmath": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Wood\\Sdk\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "WooD",
+            "email": "wood217@163.com"
+        }
+    ]
+}
