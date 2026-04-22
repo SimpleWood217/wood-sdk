@@ -1,14 +1,23 @@
 {
     "name": "wood/sdk",
-    "description": "木SDK",
+    "description": "简木PHP-SDK - 个人开发的聚合支付与云服务SDK，为简木聚合支付系统及其他项目提供支付宝、微信支付、阿里云等第三方服务的统一接口封装。支持支付宝 V3/V2 接口（含公私钥和证书签名模式）、微信支付 V3 接口（含签名、解密、公钥加密、图片上传）、阿里云 OpenAPI（ACS3-HMAC-SHA256 签名）",
+    "keywords": [
+        "alipay",
+        "wechat-pay",
+        "payment",
+        "aliyun",
+        "sdk",
+        "jmpay"
+    ],
     "type": "library",
+    "license": "MIT",
     "require": {
-        "guzzlehttp/guzzle": "7.5.*",
         "php": "8.3.*",
+        "guzzlehttp/guzzle": "7.5.*",
         "ext-openssl": "*",
         "ext-sodium": "*",
-        "symfony/var-dumper": "^7.4",
-        "ext-bcmath": "*"
+        "ext-bcmath": "*",
+        "symfony/var-dumper": "^7.4"
     },
     "autoload": {
         "psr-4": {
@@ -18,7 +27,9 @@
     "authors": [
         {
             "name": "WooD",
-            "email": "wood217@163.com"
+            "email": "wood217@163.com",
+            "role": "Developer"
         }
-    ]
+    ],
+    "minimum-stability": "stable"
 }
