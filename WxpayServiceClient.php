@@ -1,6 +1,6 @@
 <?php
 
-namespace Wood\Sdk;
+namespace Wood\Sdk_b;
 
 use Exception;
 use GuzzleHttp\Client;
