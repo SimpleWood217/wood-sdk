@@ -35,9 +35,5 @@ class Config extends BaseConfig
         $this->private_key_path = $config['private_key_path'];
         $this->wxpay_public_key_id = $config['wxpay_public_key_id'];
         $this->wxpay_public_key_path = $config['wxpay_public_key_path'] ?? '';
-
-        if (!file_exists(root_path() . $this->private_key_path)) {
-            throw new InvalidConfigException('商户API私钥不存在');
-        }
     }
 }
