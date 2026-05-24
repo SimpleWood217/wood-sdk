@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/jmpay-sdk.iml" filepath="$PROJECT_DIR$/.idea/jmpay-sdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../wood/redis-queue/.idea/redis-queue.iml" filepath="$PROJECT_DIR$/../wood/redis-queue/.idea/redis-queue.iml" />
     </modules>
   </component>
 </project>

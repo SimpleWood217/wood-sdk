@@ -161,7 +161,7 @@ class HttpRequestException extends Exception
     {
         $lines = [
             '========== HTTP Request Exception ==========',
-            'Message:    ' . $this->getMessage(),
+            'MessageInterface:    ' . $this->getMessage(),
             'HTTP Code:  ' . $this->http_code,
             'Method:     ' . strtoupper($this->method),
             'URL:        ' . $this->url,

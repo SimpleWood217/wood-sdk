@@ -8,7 +8,7 @@ use Wood\Sdk\Pay\Alipay\Config;
 
 class Signer
 {
-    private Config $config;
+    public Config $config;
 
     public function __construct(Config $config)
     {
