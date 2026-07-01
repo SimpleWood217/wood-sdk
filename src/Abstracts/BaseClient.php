@@ -39,15 +39,26 @@ abstract class BaseClient
         string $method,
         string $path,
         array  $options = [],
-    ) {
+    ): mixed {
         $body = $options['body'] ?? [];
         $headers = $this->buildHeaders($method, $path, $options);
+        if (isset($headers['new_body'])) {
+            $body = $headers['new_body'];
+            unset($headers['new_body']);
+        }
 
         $error = false;
         try {
+            if ($method != 'GET') {
+                if ($headers['Content-Type'] == 'application/x-www-form-urlencoded') {
+                    $body = http_build_query($body);
+                } else {
+                    $body = $this->jsonEncode($body);
+                }
+            }
             $response = $this->httpClient->request($method, $this->getBaseUri() . $path, [
                 'headers'                            => $headers,
-                $method === 'GET' ? 'query' : 'body' => $method === 'GET' ? $body : $this->jsonEncode($body),
+                $method === 'GET' ? 'query' : 'body' => $body,
             ]);
             $content = $response->getBody()->getContents();
 
@@ -56,7 +67,7 @@ abstract class BaseClient
             $error = true;
             $res_body = $e->hasResponse() ? $e->getResponse()->getBody()->getContents() : $e->getMessage();
             $message = '请求网关失败';
-            $http_code = $e->getResponse()->getStatusCode();
+            $http_code = $e->getResponse()->getStatusCode() ?? 599;
         } catch (Throwable $e) {
             $error = true;
             $res_body = $e->getMessage();
