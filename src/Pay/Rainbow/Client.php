@@ -54,7 +54,7 @@ class Client extends BaseClient
         $sign_str = '';
 
         foreach ($param as $k => $v) {
-            if ($k != "sign" && $k != "sign_type" && $v != '') {
+            if ($k != "sign" && $k != "sign_type" && $v != '' && !is_array($v)) {
                 $sign_str .= $k . '=' . $v . '&';
             }
         }
