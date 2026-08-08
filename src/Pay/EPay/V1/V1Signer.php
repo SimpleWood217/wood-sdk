@@ -1,6 +1,6 @@
 <?php
 
-namespace Wood\Sdk\Pay\Rainbow\V1;
+namespace Wood\Sdk\Pay\EPay\V1;
 
 use Wood\Sdk\Contracts\SignerInterface;
 

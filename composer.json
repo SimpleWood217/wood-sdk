@@ -22,7 +22,10 @@
     "autoload": {
         "psr-4": {
             "Wood\\Sdk\\": "src/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "authors": [
         {

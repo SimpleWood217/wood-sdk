@@ -1,6 +1,6 @@
 <?php
 
-namespace Wood\Sdk\Pay\Rainbow\V2;
+namespace Wood\Sdk\Pay\EPay\V2;
 
 use Wood\Sdk\Contracts\SignerInterface;
 use Wood\Sdk\Exceptions\InvalidConfigException;

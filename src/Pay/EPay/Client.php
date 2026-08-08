@@ -1,11 +1,11 @@
 <?php
 
-namespace Wood\Sdk\Pay\Rainbow;
+namespace Wood\Sdk\Pay\EPay;
 
 use Wood\Sdk\Abstracts\BaseClient;
 use Wood\Sdk\Exceptions\InvalidConfigException;
-use Wood\Sdk\Pay\Rainbow\V1\V1Signer;
-use Wood\Sdk\Pay\Rainbow\V2\V2Signer;
+use Wood\Sdk\Pay\EPay\V1\V1Signer;
+use Wood\Sdk\Pay\EPay\V2\V2Signer;
 
 class Client extends BaseClient
 {
@@ -29,7 +29,7 @@ class Client extends BaseClient
     {
         $body = $options['body'] ?? [];
 
-        if ($body['sign_type'] === 'md5') {
+        if (strtolower($body['sign_type']) === 'md5') {
             $signer = new V1Signer($this->config->get('secret'));
         } else {
             $signer = new V2Signer($this->config->get('private_key'));

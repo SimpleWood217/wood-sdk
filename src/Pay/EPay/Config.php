@@ -1,6 +1,6 @@
 <?php
 
-namespace Wood\Sdk\Pay\Rainbow;
+namespace Wood\Sdk\Pay\EPay;
 
 use Wood\Sdk\Abstracts\BaseConfig;
 use Wood\Sdk\Exceptions\InvalidConfigException;
@@ -23,7 +23,7 @@ class Config extends BaseConfig
     public function __construct(array $config)
     {
         $this->gateway = $config['gateway'];
-        if ($config['sign_type'] === 'md5') {
+        if (strtolower($config['sign_type']) === 'md5') {
             $this->essential_config = array_merge($this->essential_config, ['secret']);
             $this->secret = $config['secret'];
         } else {
