@@ -14,12 +14,12 @@ abstract class BaseClient
     public static string      $defaultHttpDriver = 'guzzle';
     protected ClientInterface $httpClient;
 
-    public function __construct()
+    public function __construct(protected int $timeout = 15)
     {
         if (self::$defaultHttpDriver == 'swoole') {
-            $client = new \Wood\Sdk\Http\Swoole\Client(['timeout' => 5]);
+            $client = new \Wood\Sdk\Http\Swoole\Client(['timeout' => $timeout]);
         } else {
-            $client = new Client(['timeout' => 5]);
+            $client = new Client(['timeout' => $timeout]);
         }
         $this->httpClient = $client;
     }
@@ -79,6 +79,7 @@ abstract class BaseClient
             $error = true;
             $ex = new HttpRequestException('请求失败' . $e->getMessage());
             $response = $e->getResponse();
+            dump($response->getBody()->getContents());
             $handler_context = $e->getHandlerContext();
             $res_body = $response ? $response->getBody()->getContents() : $e->getMessage();
             $http_code = $response ? $response->getStatusCode() : ($handler_context['http_code'] ??

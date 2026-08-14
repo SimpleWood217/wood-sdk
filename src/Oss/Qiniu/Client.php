@@ -13,9 +13,9 @@ class Client extends BaseClient
 {
     protected Config $config;
 
-    public function __construct(Config $config)
+    public function __construct(Config $config, int $timeout = 60)
     {
-        parent::__construct();
+        parent::__construct($timeout);
         $this->config = $config;
     }
 
@@ -100,11 +100,26 @@ class Client extends BaseClient
      *                         - crc32: 文件 CRC32 校验值
      *
      * @throws HttpRequestException
+     * @throws FileNonExistent
      * @return mixed 成功返回 ["hash" => ..., "key" => ...]，失败抛出异常
      */
-    public function upload(string $key, string $filePath, array $options = []): mixed
-    {
+    public function upload(
+        string   $key,
+        string   $filePath,
+        array    $options = [],
+        callable $progress_callback = null,
+        bool     $body_as_string = true
+    ): mixed {
         $bucket = $this->config->get('bucket');
+
+        if (!is_file($filePath) || !is_readable($filePath)) {
+            throw new FileNonExistent($filePath);
+        }
+
+        $file = fopen($filePath, 'rb');
+        if ($file === false) {
+            throw new FileNonExistent($filePath);
+        }
 
         // 生成上传凭证
         $signer = new Upload($this->config, $key);
@@ -114,7 +129,7 @@ class Client extends BaseClient
         $multipart = [
             ['name' => 'token', 'contents' => $token],
             ['name' => 'key', 'contents' => $key],
-            ['name' => 'file', 'contents' => fopen($filePath, 'r'), 'filename' => basename($filePath)],
+            ['name' => 'file', 'contents' => $file, 'filename' => basename($filePath)],
         ];
 
         if (isset($options['crc32'])) {
@@ -123,6 +138,11 @@ class Client extends BaseClient
 
         return $this->request('POST', $this->config->get('upload_domain'), [
             'multipart' => $multipart,
+            'request'   => [
+                'expect'          => !$body_as_string,
+                '_body_as_string' => $body_as_string,
+                'progress'        => $progress_callback,
+            ],
         ]);
     }
 
